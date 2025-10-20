@@ -5,6 +5,7 @@
 #include "Scene3.h"
 #include "Scene4.h"
 #include "Scene5.h"
+#include "Scene6.h"
 
 class CSceneManager : public CSceneBaseClass
 {
