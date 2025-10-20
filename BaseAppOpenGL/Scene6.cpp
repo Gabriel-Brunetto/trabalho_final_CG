@@ -1,6 +1,6 @@
 #include "Scene6.h"
 
-CScene6::CScene6()
+Cscene6::Cscene6()
 {
 	pCamera = NULL;
 	pTexto = NULL;
@@ -33,7 +33,7 @@ CScene6::CScene6()
 }
 
 
-CScene6::~CScene6(void)
+Cscene6::~Cscene6(void)
 {
 	if (pTexto)
 	{
@@ -63,7 +63,7 @@ CScene6::~CScene6(void)
 
 
 
-int CScene6::DrawGLScene(void)	// Função que desenha a cena
+int Cscene6::DrawGLScene(void)	// Função que desenha a cena
 {
 	// Get FPS
 	if (GetTickCount() - ulLastFPS >= 1000)	// When A Second Has Passed...
@@ -168,7 +168,7 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 
 
 
-void CScene6::MouseMove(void) // Tratamento de movimento do mouse
+void Cscene6::MouseMove(void) // Tratamento de movimento do mouse
 {
 	// Realiza os cálculos de rotação da visão do Player (através das coordenadas
 	// X do mouse.
@@ -190,7 +190,7 @@ void CScene6::MouseMove(void) // Tratamento de movimento do mouse
 	pCamera->rotateLoc(-fDeltaY, 1.0f, 0.0f, 0.0f);
 }
 
-void CScene6::KeyPressed(void) // Tratamento de teclas pressionadas
+void Cscene6::KeyPressed(void) // Tratamento de teclas pressionadas
 {
 
 	// Verifica se a tecla 'W' foi pressionada e move o Player para frente
@@ -230,7 +230,7 @@ void CScene6::KeyPressed(void) // Tratamento de teclas pressionadas
 
 }
 
-void CScene6::KeyDownPressed(WPARAM	wParam) // Tratamento de teclas pressionadas
+void Cscene6::KeyDownPressed(WPARAM	wParam) // Tratamento de teclas pressionadas
 {
 	switch (wParam)
 	{
@@ -250,7 +250,7 @@ void CScene6::KeyDownPressed(WPARAM	wParam) // Tratamento de teclas pressionadas
 }
 
 //	Cria um grid horizontal ao longo dos eixos X e Z
-void CScene6::Draw3DSGrid(float width, float length)
+void Cscene6::Draw3DSGrid(float width, float length)
 {
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -276,7 +276,7 @@ void CScene6::Draw3DSGrid(float width, float length)
 
 
 
-void CScene6::DrawAxis()
+void Cscene6::DrawAxis()
 {
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, 0.0f);

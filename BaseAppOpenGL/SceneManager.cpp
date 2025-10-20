@@ -140,10 +140,6 @@ void CSceneManager::KeyDownPressed(WPARAM wParam)
 	if (wParam == '4') ChangeScene(4);
 	if (wParam == '5') ChangeScene(5);
 	if (wParam == '6') ChangeScene(6);
-
-
-	
-
 }
 
 // Redimensiona e inicial a janela OpenGL

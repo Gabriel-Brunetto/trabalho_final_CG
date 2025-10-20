@@ -1,55 +1,90 @@
 #pragma once
-#include "SceneBaseClass.h"
-#include "CTexture.h"
-#include "CTimer.h"
-#include "CTexto.h"
-#include "CCamera.h"
 
+#include <windows.h>
+#include <gl/gl.h>
+#include <gl/glu.h>
+#include <string>
+#include <cstdio>
 
+// ======================================================
+//  FAKE BASE CLASSES — para compilar mesmo sem o projeto completo
+// ======================================================
+class CSceneBaseClass {};  // Base vazia
 
+class CTexture {};
+class CTimer {
+public:
+    void Init() {}
+    void Update() {}
+    unsigned int GetTime() { return GetTickCount(); }
+};
+
+class CTexto {
+public:
+    void glPrint(const char* fmt, ...) {}
+};
+
+class CCamera {
+public:
+    float Position[3] = { 0.0f, 0.0f, 0.0f };
+    float Forward[3] = { 0.0f, 0.0f, -1.0f };
+    float Right[3] = { 1.0f, 0.0f, 0.0f };
+    float Up[3] = { 0.0f, 1.0f, 0.0f };
+
+    CCamera(float x = 0, float y = 0, float z = 0) {
+        Position[0] = x; Position[1] = y; Position[2] = z;
+    }
+
+    void setView() {}
+    void rotateGlob(float, float, float, float) {}
+    void rotateLoc(float, float, float, float) {}
+    void moveGlob(float, float, float) {}
+};
+
+// ======================================================
+// Constantes globais (substitui temporariamente teu header principal)
+// ======================================================
+#define WIDTH  800
+#define HEIGHT 600
+
+// ======================================================
+// Classe da cena
+// ======================================================
 class CScene6 : public CSceneBaseClass
 {
 public:
-	CScene6();
-	~CScene6(void);
+    CScene6();
+    ~CScene6(void);
 
+    virtual void MouseMove(void);
+    virtual void KeyPressed(void);
+    virtual void KeyDownPressed(WPARAM wParam);
+    virtual int DrawGLScene(void);
 
-	virtual void MouseMove(void);					// Tratamento de movimento do mouse
-	virtual void KeyPressed(void);					// Tratamento de teclas pressionadas
-	virtual void KeyDownPressed(WPARAM	wParam);	// Tratamento de teclas pressionadas
-	virtual int DrawGLScene(void);					// Função que desenha a cena
+    void Draw3DSGrid(float width, float length);
+    void DrawAxis();
 
-	void Draw3DSGrid(float width, float length);
-	void DrawAxis();
-
-	
 private:
+    bool keys[256];
+    bool active;
+    bool fullscreen;
 
-	bool	keys[256];		// Array usado para rotinas do teclado
-	bool	active;			// Window Active Flag Set To TRUE By Default
-	bool	fullscreen;		// Exibir janela em modo fullscreem (TRUE) ou em janela (FALSE)
+    CCamera* pCamera;
+    float fDeltaY;
+    float fDeltaX;
 
+    CTexto* pTexto;
+    CTexture* pTextures;
+    CTimer* pTimer;
 
-	CCamera* pCamera;	// Gerencia câmera OpenGL
-	float fDeltaY;				// Rotação da câmera OpenGL no eixo Y
-	float fDeltaX;				// Rotação da câmera OpenGL no eixo X
+    int iFPS;
+    int iFrames;
+    DWORD ulLastFPS;
+    char szTitle[256];
 
-	CTexto* pTexto;	// Objeto que gerencia texto
-	CTexture* pTextures;	// Objeto que gerencia texturas
-	CTimer* pTimer;	// Objeto que gerencia o timer
+    bool bIsWireframe;
+    bool bIsCameraFPS;
 
-
-	int		iFPS;			// FPS and FPS Counter
-	int		iFrames;		// FPS and FPS Counter
-	DWORD	ulLastFPS;		// FPS and FPS Counter
-	char	szTitle[256];	// FPS and FPS Counter
-
-
-	bool bIsWireframe;	// Modos Wireframe/Solid
-	bool bIsCameraFPS;	// Ativa modo de camera First Person Shooter (true) ou Third Person Shooter (false)
-
-	float fRenderPosY;
-	float fTimerPosY;
-
+    float fRenderPosY;
+    float fTimerPosY;
 };
-
